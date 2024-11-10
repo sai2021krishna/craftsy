@@ -2,7 +2,6 @@ import { CategoryComponent } from "../components/category.component";
 import { useKriviStore } from "../infra/store/store";
 
 export const DashboardContainerComponent = () => {
-  const { toggleLoaderActive } = useKriviStore.getState();
   const { categories } = useKriviStore((state) => state.catDetails);
 
   return (

@@ -1,5 +1,3 @@
-import React from "react";
-
 export const CategoryComponent = (props: any) => {
   const { imageName, categoryTitle, categoryDescription } = props;
   return (
@@ -10,6 +8,7 @@ export const CategoryComponent = (props: any) => {
         <img
           src={imageName}
           className="h-full w-full object-center mix-blend-darken border-none rounded-xl"
+          alt={`${imageName}`}
         ></img>
       </div>
       <div className="h-1/2 md:h-full xl:h-full 2xl:h-full md:w-1/2 xl:w-1/2 2xl:w-1/2 p-5 m-auto">
