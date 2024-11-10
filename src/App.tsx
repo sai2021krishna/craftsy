@@ -6,7 +6,9 @@ import { BaseScreenComponent } from "./screens/base/base.screen.component";
 function App() {
   return (
     <>
-      <BaseScreenComponent />
+      <React.StrictMode>
+        <BaseScreenComponent />
+      </React.StrictMode>
     </>
   );
 }

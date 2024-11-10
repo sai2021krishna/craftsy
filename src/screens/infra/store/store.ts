@@ -1,8 +1,20 @@
-/* import { create } from "zustand";
-import { FishSlice } from "./models/sample.model";
-import { createFishSlice } from '../store/slices/sample.slice';
+import { create } from "zustand";
+import {
+  Screen,
+  Categories,
+  CategoryProducts,
+  ProcessFlags,
+} from "./models/context.model";
+import { createScreenSlice } from "./slices/screen.slice";
+import { createCategorySlice } from "./slices/category.slice";
+import { createCategoryProductsSlice } from "./slices/category-products.slice";
+import { createProcessFlagsSLice } from "./slices/process-flags.slice";
 
-export const useKriviStore = create<FishSlice>()((...a) => ({
-    ...createFishSlice(...a)
-  })) */
-export const d = 0;
+export const useKriviStore = create<
+  Screen & Categories & CategoryProducts & ProcessFlags
+>()((...a) => ({
+  ...createScreenSlice(...a),
+  ...createCategorySlice(...a),
+  ...createCategoryProductsSlice(...a),
+  ...createProcessFlagsSLice(...a),
+}));

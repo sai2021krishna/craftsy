@@ -1,0 +1,1 @@
+export { getAllCategories, getAllProductsFromCategory } from './firestore-functions-call'
