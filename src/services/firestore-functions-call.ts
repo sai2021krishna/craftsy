@@ -3,7 +3,7 @@ import axios from "axios";
 const prodBaseAddress =
   "https://us-central1-krivi-criative-trial.cloudfunctions.net/api";
 
-const baseAddress = "http://localhost:5001/krivi-criative-trial/us-central1/api";
+//const baseAddress = "http://localhost:5001/krivi-criative-trial/us-central1/api";
 
 export const getAllCategories = async () => {
   try {
@@ -23,6 +23,7 @@ export const getAllProductsFromCategory = async (category: string) => {
         category,
       },
     });
+    return response.data;
   } catch (e) {
     console.log(e);
   }
