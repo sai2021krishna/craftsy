@@ -15,13 +15,17 @@ export const BaseScreenComponent: React.FC<any> = () => {
         </div>
         <div className="flex-1">
           <Routes>
-            <Route path="products/" element={<ProductsContainerComponent />}>
-              <Route path="?id=*" element={<ProductDetailsContainer />} />
+            <Route path="/" element={null}>
+              <Route index element={<DashboardContainerComponent />} />
+              <Route path="products" element={null}>
+                <Route index element={<ProductsContainerComponent />} />
+                <Route path=":id" element={<ProductDetailsContainer />} />
+              </Route>
+              <Route path="*" element={<p>INVALID PATH</p>}/>
             </Route>
-            <Route path="/" element={<DashboardContainerComponent />} />
           </Routes>
         </div>
-        <div className="h-32 bg-kriviBlack">
+        <div className="h-60 bg-kriviBlack">
           <FooterComponent />
         </div>
       </div>

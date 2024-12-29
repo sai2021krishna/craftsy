@@ -6,7 +6,7 @@ export const DashboardContainerComponent = () => {
 
   const handleBrowseProductsClick = useCallback(() => {
     console.info("Browse Products Clicked");
-    navigate("products");
+    navigate("/products");
   }, []);
 
   return (

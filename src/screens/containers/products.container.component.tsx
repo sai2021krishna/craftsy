@@ -29,6 +29,7 @@ export const ProductsContainerComponent = () => {
           altText="Woodland Blues Candle"
           listPrice="800.00"
           salePrice="700.00"
+          id={4}
         />
         <ProductDetailTile
           name="Espresso Short"
@@ -36,6 +37,7 @@ export const ProductsContainerComponent = () => {
           altText="Espresso Short Candle"
           listPrice="635.00"
           salePrice="585.00"
+          id={2}
         />
         <ProductDetailTile
           name="Sunny Blossom"
@@ -43,6 +45,7 @@ export const ProductsContainerComponent = () => {
           altText="Sunny Blossom Candle"
           listPrice="585.00"
           salePrice="550.00"
+          id={3}
         />
       </div>
     </div>

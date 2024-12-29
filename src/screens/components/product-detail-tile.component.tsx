@@ -9,7 +9,7 @@ export const ProductDetailTile = (props: any) => {
 
   const handleProductClick = useCallback(
     (id: number) => {
-      navigate(`products/?id=${id}`);
+      navigate(`:${id}`);
     },
     [id]
   );
