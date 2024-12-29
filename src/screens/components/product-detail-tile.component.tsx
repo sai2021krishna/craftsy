@@ -9,7 +9,7 @@ export const ProductDetailTile = (props: any) => {
 
   const handleProductClick = useCallback(
     (id: number) => {
-      navigate(`:${id}`);
+      navigate(`${id}`);
     },
     [id]
   );
@@ -21,7 +21,7 @@ export const ProductDetailTile = (props: any) => {
       <div>
         <img src={image} alt={altText} className="border-none rounded-md" />
       </div>
-      <p className="italic text-md font-kriviCenturyFont font-semibold">
+      <p className="italic mt-3 text-md font-kriviCenturyFont font-semibold">
         {name}
       </p>
       <p className="line-through text-sm font-light font-kriviCourierFont ">

@@ -6,6 +6,11 @@ module.exports = {
       transparent: "transparent",
       kriviBase: "#FFFFFF",
       kriviBlack: "#303030",
+      kriviSuccess: '#8ffc79',
+      kriviWarning: '#fccc6d',
+      kriviInfo: '#6dd6fc',
+      kriviError: '',
+      kriviRed: ''
     },
     extend: {
       fontFamily: {
@@ -18,5 +23,5 @@ module.exports = {
       }
     },
   },
-  plugins: [require('@tailwindcss/aspect-ratio')],
+  plugins: [],
 };

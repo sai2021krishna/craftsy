@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import CarouselComponent from "../components/carousel.component";
 
 const products = [
   {
@@ -50,11 +51,12 @@ const products = [
 
 const ProductDetailsContainer = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { pathname } = location;
 
   const [quantity, setQuantity] = useState(1);
 
-  const productId = pathname.split("/")[2]?.split(":")[1];
+  const productId = pathname.split("/")[2];
 
   const productDetails = products.find(
     (product) => product.id === Number(productId)
@@ -80,14 +82,20 @@ const ProductDetailsContainer = () => {
     }
   };
 
+  const handleCartNBuyButtonClicks = (type: "CART" | "BUY") => {
+    // check for session
+    const kriviDetails = localStorage.getItem("kriviDetails");
+    console.info(kriviDetails);
+    if (!kriviDetails || !JSON.parse(kriviDetails).profile?.email) {
+      //navigate to the session creation page and then bring back to this page
+      navigate("/session-creation", { state: { from: location.pathname } });
+    }
+  };
+
   return (
     <div className="h-full">
       <div className="mt-5 w-full">
-        <img
-          src="/coldplay-candle.jpeg"
-          alt="coldplay candle"
-          className="p-3"
-        />
+        <CarouselComponent />
         <div className="mt-3 flex justify-center">
           <p className="font-kriviCenturyFont text-sm"> 1/2 </p>
         </div>
@@ -136,10 +144,16 @@ const ProductDetailsContainer = () => {
           </div>
         </div>
         <div className="mt-5">
-          <button className="w-full h-10 font-kriviCenturyFont border  active:bg-kriviBlack active:bg-opacity-10 active:transition active:ease-in-out active:scale-105">
+          <button
+            onClick={() => handleCartNBuyButtonClicks("CART")}
+            className="w-full h-10 font-kriviCenturyFont border  active:bg-kriviBlack active:bg-opacity-10 active:transition active:ease-in-out active:scale-105"
+          >
             Add to cart
           </button>
-          <button className="w-full mt-3 h-10 font-kriviCenturyFont bg-kriviBlack text-kriviBase active:transition active:ease-in-out active:scale-105">
+          <button
+            onClick={() => handleCartNBuyButtonClicks("BUY")}
+            className="w-full mt-3 h-10 font-kriviCenturyFont bg-kriviBlack text-kriviBase active:transition active:ease-in-out active:scale-105"
+          >
             Buy it now
           </button>
         </div>
