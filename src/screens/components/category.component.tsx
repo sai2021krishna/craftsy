@@ -12,7 +12,7 @@ export const CategoryComponent = (props: any) => {
         ></img>
       </div>
       <div className="h-1/2 md:h-full xl:h-full 2xl:h-full md:w-1/2 xl:w-1/2 2xl:w-1/2 p-5 m-auto">
-        <p className="text-kriviContrast text-6xl md:text-9xl xl:text-9xl 2xl:text-9xl font-kriviTangerineFont flex justify-center md:justify-start xl:justify-start 2xl:justify-start">
+        <p className="text-kriviContrast text-6xl md:text-9xl xl:text-9xl 2xl:text-9xl font-kriviMPlus1PFont flex justify-center md:justify-start xl:justify-start 2xl:justify-start">
           {categoryTitle ?? "Category Title"}
         </p>
         <p className="text-kriviContrast text-2xl md:text-5xl xl:text-5xl 2xl:text-5xl font-kriviTangerineFont flex justify-center text-center md:justify-end xl:justify-end 2xl:justify-end">
