@@ -1,32 +1,33 @@
 import React from "react";
-import { getAllCategories } from "../../services";
-import { LoaderComponent } from "../components/loader.component";
 import { NavbarComponent } from "../components/navbar.component";
 import { DashboardContainerComponent } from "../containers/dashboard.container.component";
-import { useKriviStore } from "../infra/store/store";
+import { Routes, Route } from "react-router-dom";
+import { ProductsContainerComponent } from "../containers/products.container.component";
+import { FooterComponent } from "../components/footer.component";
+import ProductDetailsContainer from "../containers/product-detail.container.component";
 
 export const BaseScreenComponent: React.FC<any> = () => {
-  const { activeScreen } = useKriviStore((state) => state.screenDetails);
-  
-  const { categories } = useKriviStore((state) => state.catDetails);
-  const { setCategories } = useKriviStore.getState();
-
-  const getAndSetCategories = async () => {
-    const categoriesResponse = await getAllCategories();
-    if (categoriesResponse.length) {
-      setCategories(categoriesResponse);
-    }
-  };
-  if (!categories.length) {
-    console.log(categories.length)
-    getAndSetCategories();
-  }
-
   return (
     <>
-      <div className="h-full">
-        <NavbarComponent />
-        {!categories.length ? <LoaderComponent />: activeScreen === "DASHBOARD" && <DashboardContainerComponent /> }
+      <div className="flex flex-col min-h-screen">
+        <div className="min-w-full h-14 flex p-2">
+          <NavbarComponent />
+        </div>
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={null}>
+              <Route index element={<DashboardContainerComponent />} />
+              <Route path="products" element={null}>
+                <Route index element={<ProductsContainerComponent />} />
+                <Route path=":id" element={<ProductDetailsContainer />} />
+              </Route>
+              <Route path="*" element={<p>INVALID PATH</p>}/>
+            </Route>
+          </Routes>
+        </div>
+        <div className="h-60 bg-kriviBlack">
+          <FooterComponent />
+        </div>
       </div>
     </>
   );

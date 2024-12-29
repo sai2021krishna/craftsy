@@ -4,17 +4,13 @@ module.exports = {
   theme: {
     colors: {
       transparent: "transparent",
-      kriviBase: "#FEFAE0",
-      kriviPrimary: "#798645",
-      kriviSecondary: "#F2EED7",
-      kriviContrast: "#626F47",
-      kriviBlack: "#181C14",
-      kriviGrey: "#3C3D37",
+      kriviBase: "#FFFFFF",
+      kriviBlack: "#303030",
     },
     extend: {
       fontFamily: {
-        kriviMPlus1PFont: ["'M PLUS 1p'", "sans-serif"],
-        kriviTangerineFont: ["Tangerine", "cursive"],
+        kriviCourierFont: ["Courier New", "Courier", "monospace"],
+        kriviCenturyFont: ["Century Gothic", "sans-serif"],
       },
       minWidth: {
         "1by10": "10%",
@@ -22,5 +18,5 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };
