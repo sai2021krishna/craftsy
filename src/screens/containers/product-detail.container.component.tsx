@@ -1,60 +1,17 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-
-const products = [
-  {
-    id: 1,
-    name: "Lights will Guide You Home",
-    description: `A cinnamon scented candle inspired by Coldplay's Fix you.
-            \n
-            100% Soy wax.
-            \n
-            Hand-poured with Love.`,
-    listPrice: "700.00",
-    salePrice: "650.00",
-    isSaleActive: true,
-  },
-  {
-    id: 2,
-    name: "Espresso Short",
-    description: `A cinnamon scented candle inspired by Sabrina Crapenter.
-            <br />
-            100% Soy wax.
-            <br />
-            Hand-poured with Love.`,
-    listPrice: "635.00",
-    salePrice: "585.00",
-    isSaleActive: true,
-  },
-  {
-    id: 3,
-    name: "Sunny Blossom",
-    description: `Warmth of sun in the shape of a blossom.
-            <br />
-            100% Soy wax candle.
-            <br />
-            Hand-poured with Love in cinnamon vanilla fragrance.`,
-    listPrice: "585.00",
-    salePrice: "550.00",
-    isSaleActive: true,
-  },
-  {
-    id: 4,
-    name: "Woodland Blues",
-    description: `A rose scented soy wax candle poured with love in a hand crafted wooden doe.`,
-    listPrice: "800.00",
-    salePrice: "750.00",
-    isSaleActive: true,
-  },
-];
+import { useLocation, useNavigate } from "react-router-dom";
+import CarouselComponent from "../components/carousel.component";
+import { useKriviStore } from "../infra/store/store";
+import { products } from "./helper/products";
 
 const ProductDetailsContainer = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { pathname } = location;
 
   const [quantity, setQuantity] = useState(1);
 
-  const productId = pathname.split("/")[2]?.split(":")[1];
+  const productId = pathname.split("/")[2];
 
   const productDetails = products.find(
     (product) => product.id === Number(productId)
@@ -80,14 +37,53 @@ const ProductDetailsContainer = () => {
     }
   };
 
+  const manageProductInCart = () => {
+    const {
+      cart,
+      pushNewProductsToCart,
+      updateExistingProductQuant,
+      removeProductFromCart,
+    } = useKriviStore.getState();
+
+    const { products } = cart;
+
+    const exitsingProduct = products.find(
+      (product) => product.productId === Number(productId)
+    );
+
+    if (quantity === 0) {
+      removeProductFromCart(Number(productId));
+    } else if (!products.length || !exitsingProduct) {
+      pushNewProductsToCart({ productId: Number(productId), quantity });
+    } else {
+      updateExistingProductQuant(Number(productId), quantity);
+    }
+  };
+
+  const handleCartNBuyButtonClicks = (type: "CART" | "BUY") => {
+    // check for session
+    const kriviDetails = localStorage.getItem("kriviDetails");
+    console.info(kriviDetails);
+    if (!kriviDetails || !JSON.parse(kriviDetails).profile?.email) {
+      //navigate to the session creation page and then bring back to this page
+      navigate("/session-creation", { state: { from: location.pathname } });
+    } else {
+      const { setEmail } = useKriviStore.getState();
+
+      setEmail(JSON.parse(kriviDetails).profile?.email);
+
+      manageProductInCart();
+    }
+
+    if(type === 'BUY') {
+      navigate('/cart')
+    }
+  };
+
   return (
     <div className="h-full">
       <div className="mt-5 w-full">
-        <img
-          src="/coldplay-candle.jpeg"
-          alt="coldplay candle"
-          className="p-3"
-        />
+        <CarouselComponent />
         <div className="mt-3 flex justify-center">
           <p className="font-kriviCenturyFont text-sm"> 1/2 </p>
         </div>
@@ -136,10 +132,16 @@ const ProductDetailsContainer = () => {
           </div>
         </div>
         <div className="mt-5">
-          <button className="w-full h-10 font-kriviCenturyFont border  active:bg-kriviBlack active:bg-opacity-10 active:transition active:ease-in-out active:scale-105">
+          <button
+            onClick={() => handleCartNBuyButtonClicks("CART")}
+            className="w-full h-10 font-kriviCenturyFont border  active:bg-kriviBlack active:bg-opacity-10 active:transition active:ease-in-out active:scale-105"
+          >
             Add to cart
           </button>
-          <button className="w-full mt-3 h-10 font-kriviCenturyFont bg-kriviBlack text-kriviBase active:transition active:ease-in-out active:scale-105">
+          <button
+            onClick={() => handleCartNBuyButtonClicks("BUY")}
+            className="w-full mt-3 h-10 font-kriviCenturyFont bg-kriviBlack text-kriviBase active:transition active:ease-in-out active:scale-105"
+          >
             Buy it now
           </button>
         </div>
