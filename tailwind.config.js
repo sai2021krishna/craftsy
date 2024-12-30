@@ -6,7 +6,7 @@ module.exports = {
       transparent: "transparent",
       kriviBase: "#FFFFFF",
       kriviBlack: "#303030",
-      kriviSuccess: '#8ffc79',
+      kriviSuccess: '#42eb77',
       kriviWarning: '#fccc6d',
       kriviInfo: '#6dd6fc',
       kriviError: '#fa3425',
