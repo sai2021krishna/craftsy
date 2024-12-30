@@ -1,18 +1,14 @@
 import { StateCreator } from "zustand";
-import { CategoryProducts } from "./../models/context.model";
+import { Products } from "./../models/context.model";
 
-export const createCategoryProductsSlice: StateCreator<CategoryProducts> = (
-  set
-) => ({
-  catProdDetails: { categoryProducts: [], category: "" },
-  setCategoryProducts: (categoryProducts: any) =>
+export const createProductsSlice: StateCreator<Products> = (set) => ({
+  prodDetails: { products: [] },
+  setProducts: (products: any) =>
     set((state) => ({
-      catProdDetails: { ...state.catProdDetails, categoryProducts },
+      prodDetails: { ...state.prodDetails, products },
     })),
-  setCategory: (category: string) =>
-    set((state) => ({ catProdDetails: { ...state.catProdDetails, category } })),
-  resetCategoryProducts: () =>
+  resetProducts: () =>
     set((state) => ({
-      catProdDetails: { categoryProducts: [], category: "" },
+      prodDetails: { products: [] },
     })),
 });

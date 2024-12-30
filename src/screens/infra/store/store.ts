@@ -1,20 +1,23 @@
 import { create } from "zustand";
 import {
-  Screen,
   Categories,
-  CategoryProducts,
+  Products,
   ProcessFlags,
+  ProfileDetails,
+  CartDetails,
 } from "./models/context.model";
-import { createScreenSlice } from "./slices/screen.slice";
 import { createCategorySlice } from "./slices/category.slice";
-import { createCategoryProductsSlice } from "./slices/category-products.slice";
+import { createProductsSlice } from "./slices/category-products.slice";
 import { createProcessFlagsSLice } from "./slices/process-flags.slice";
+import { CartSlice } from "./slices/cart.slice";
+import { ProfileSlice } from "./slices/profile.slice";
 
 export const useKriviStore = create<
-  Screen & Categories & CategoryProducts & ProcessFlags
+  Categories & Products & ProcessFlags & ProfileDetails & CartDetails
 >()((...a) => ({
-  ...createScreenSlice(...a),
   ...createCategorySlice(...a),
-  ...createCategoryProductsSlice(...a),
+  ...createProductsSlice(...a),
   ...createProcessFlagsSLice(...a),
+  ...CartSlice(...a),
+  ...ProfileSlice(...a)
 }));

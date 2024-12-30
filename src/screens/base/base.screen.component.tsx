@@ -6,6 +6,7 @@ import { ProductsContainerComponent } from "../containers/products.container.com
 import { FooterComponent } from "../components/footer.component";
 import ProductDetailsContainer from "../containers/product-detail.container.component";
 import SessionCreationContainer from "../containers/session-creation.container.component";
+import CartContainer from "../containers/cart.container.component";
 
 export const BaseScreenComponent: React.FC<any> = () => {
   return (
@@ -24,6 +25,9 @@ export const BaseScreenComponent: React.FC<any> = () => {
               </Route>
               <Route path="session-creation" element={null}>
                 <Route index element={<SessionCreationContainer />} />
+              </Route>
+              <Route path="cart" element={null}>
+                <Route index element={<CartContainer />} />
               </Route>
               <Route path="*" element={<p>INVALID PATH</p>} />
             </Route>
