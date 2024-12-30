@@ -5,12 +5,14 @@ export const createProcessFlagsSLice: StateCreator<ProcessFlags> = (set) => ({
   processFlags: {
     isErrorScreenActive: false,
     isLoaderActive: false,
+    isProductsLoaded: false,
   },
   resetProcessFlags: () =>
     set((state) => ({
       processFlags: {
         isErrorScreenActive: false,
         isLoaderActive: false,
+        isProductsLoaded: false,
       },
     })),
   toggleLoaderActive: (isLoaderActive: boolean) =>
@@ -27,6 +29,14 @@ export const createProcessFlagsSLice: StateCreator<ProcessFlags> = (set) => ({
         isErrorScreenActive,
       },
     })),
+  toggleProductsLoaded: (isProductsLoaded: boolean) => {
+    set((state) => ({
+      processFlags: {
+        ...state.processFlags,
+        isProductsLoaded,
+      },
+    }));
+  },
 });
 
 /* processFlags: {

@@ -9,8 +9,8 @@ module.exports = {
       kriviSuccess: '#8ffc79',
       kriviWarning: '#fccc6d',
       kriviInfo: '#6dd6fc',
-      kriviError: '',
-      kriviRed: ''
+      kriviError: '#fa3425',
+      kriviRed: '#ff695e'
     },
     extend: {
       fontFamily: {

@@ -1,4 +1,6 @@
-export const products = [
+import { ProductInfo } from "../../infra/models/product-details.model";
+
+export const products: ProductInfo[] = [
     {
       id: 1,
       name: "Lights will Guide You Home",
@@ -10,6 +12,8 @@ export const products = [
       listPrice: "700.00",
       salePrice: "650.00",
       isSaleActive: true,
+      pictures: ['coldplay-candle.jpeg'],
+      altText: ''
     },
     {
       id: 2,
@@ -22,6 +26,8 @@ export const products = [
       listPrice: "635.00",
       salePrice: "585.00",
       isSaleActive: true,
+      pictures: ['espresso-short.jpeg'],
+      altText: ''
     },
     {
       id: 3,
@@ -34,6 +40,8 @@ export const products = [
       listPrice: "585.00",
       salePrice: "550.00",
       isSaleActive: true,
+      pictures: ['sunny-blossom.jpeg'],
+      altText: ''
     },
     {
       id: 4,
@@ -42,5 +50,7 @@ export const products = [
       listPrice: "800.00",
       salePrice: "750.00",
       isSaleActive: true,
+      pictures: ['woodland-blues.jpeg'],
+      altText: ''
     },
   ];

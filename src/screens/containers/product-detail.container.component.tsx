@@ -9,6 +9,8 @@ const ProductDetailsContainer = () => {
   const navigate = useNavigate();
   const { pathname } = location;
 
+  const { profile } = useKriviStore.getState();
+
   const [quantity, setQuantity] = useState(1);
 
   const productId = pathname.split("/")[2];
@@ -61,22 +63,14 @@ const ProductDetailsContainer = () => {
   };
 
   const handleCartNBuyButtonClicks = (type: "CART" | "BUY") => {
-    // check for session
-    const kriviDetails = localStorage.getItem("kriviDetails");
-    console.info(kriviDetails);
-    if (!kriviDetails || !JSON.parse(kriviDetails).profile?.email) {
-      //navigate to the session creation page and then bring back to this page
+    if (!profile?.email) {
       navigate("/session-creation", { state: { from: location.pathname } });
     } else {
-      const { setEmail } = useKriviStore.getState();
-
-      setEmail(JSON.parse(kriviDetails).profile?.email);
-
       manageProductInCart();
-    }
-
-    if(type === 'BUY') {
-      navigate('/cart')
+      // update cart details in firestore
+      if (type === "BUY") {
+        navigate("/cart");
+      }
     }
   };
 
