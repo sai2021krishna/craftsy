@@ -11,7 +11,7 @@ import CartContainer from "../containers/cart.container.component";
 export const BaseScreenComponent: React.FC<any> = () => {
   return (
     <>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen min-w-screen">
         <div className="min-w-full h-14 flex p-2">
           <NavbarComponent />
         </div>

@@ -39,7 +39,7 @@ function CartContainer() {
               );
               return (
                 <div className="h-28 w-full p-3 border-b flex justify-between items-center">
-                  <div className="w-1/3 flex justify-center">
+                  <div className="w-1/3 p-2 flex justify-center">
                     <img
                       src={`/${productDetail?.pictures[0]}`}
                       alt={productDetail?.altText}
@@ -47,7 +47,7 @@ function CartContainer() {
                     />
                   </div>
 
-                  <div className="w-2/3">
+                  <div className="w-2/3 p-2">
                     <p className="font-kriviCenturyFont font-bold">
                       {productDetail?.name}
                     </p>

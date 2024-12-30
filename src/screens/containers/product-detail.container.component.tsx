@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CarouselComponent from "../components/carousel.component";
 import { useKriviStore } from "../infra/store/store";
 import { products } from "./helper/products";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const ProductDetailsContainer = () => {
   const location = useLocation();
@@ -12,6 +13,7 @@ const ProductDetailsContainer = () => {
   const { profile } = useKriviStore.getState();
 
   const [quantity, setQuantity] = useState(1);
+  const [productsAddedInCart, setProductsAddedInCart] = useState(false);
 
   const productId = pathname.split("/")[2];
 
@@ -67,6 +69,12 @@ const ProductDetailsContainer = () => {
       navigate("/session-creation", { state: { from: location.pathname } });
     } else {
       manageProductInCart();
+      if (type === "CART") {
+        setProductsAddedInCart(true);
+        setTimeout(() => {
+          setProductsAddedInCart(false);
+        }, 6000);
+      }
       // update cart details in firestore
       if (type === "BUY") {
         navigate("/cart");
@@ -75,7 +83,19 @@ const ProductDetailsContainer = () => {
   };
 
   return (
-    <div className="h-full">
+    <div className="h-full w-full">
+      {productsAddedInCart && (
+        <div className="h-16 mt-5 ml-3 mr-3 p-3 bg-kriviSuccess bg-opacity-10 border-2 border-kriviSuccess rounded-md flex items-center">
+          <div className="h-10 w-10 flex justify-left items-center">
+            <CheckCircleIcon className="h-8 text-kriviSuccess" />
+          </div>
+          <div className="">
+            <p className="font-kriviCenturyFont text-base text-left font-semibold">
+              Items added to cart
+            </p>
+          </div>
+        </div>
+      )}
       <div className="mt-5 w-full">
         <CarouselComponent />
         <div className="mt-3 flex justify-center">
