@@ -42,9 +42,9 @@ export const DashboardContainerComponent = () => {
         </div>
       </div>
 
-      <div className="p-2 mb-2">
+      <div className="p-2 mb-2  bg-kriviBlack bg-opacity-5 rounded-md">
         <img src="ambasador-picture.jpg" alt="krivi brand ambasador" />
-        <div className="p-2">
+        <div className="mt-3 p-2">
           <p className="mt-2 text-lg font-bold font-kriviCenturyFont">
             About us
           </p>
@@ -53,29 +53,29 @@ export const DashboardContainerComponent = () => {
             our journeys we have taken, people we adore and the stories we've
             lived. Every design is a memory, handpoured into light.
           </p>
-          <button
-            name="Browse products"
-            className="mt-4 w-3/4 h-8 text-sm font-kriviCourierFont border"
-          >
-            Get in touch
-          </button>
         </div>
       </div>
 
-      <div className="p-2 mb-2">
-        <img src="creative-idea.jpeg" alt="krivi brand ambasador" />
+      <div className="p-2 mt-3 mb-2">
+        <img
+          src="creative-idea.jpeg"
+          alt="krivi brand ambasador"
+          className="mt-3"
+        />
         <div className="p-2">
           <p className="mt-2 text-sm font-kriviCourierFont">
             If you have a memory that you'd lik to bring back to life. DO let us
             know at @krivi_collective we might be able to design just the right
             thing for you!
           </p>
-          <button
-            name="Browse products"
-            className="mt-4 w-3/4 h-8 text-sm font-kriviCourierFont border"
-          >
-            Browse Collections
-          </button>
+          <a href="https://www.instagram.com/krivi_collective?igsh=cmJvZGhweGo5dW8z">
+            <button
+              name="Browse products"
+              className="mt-4 w-3/4 h-8 text-sm font-kriviCourierFont border"
+            >
+              Get in touch
+            </button>
+          </a>
         </div>
       </div>
     </div>
