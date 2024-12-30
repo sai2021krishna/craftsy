@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const ProductDetailTile = (props: any) => {
   const { id, name, image, altText } = props;
-  const { listPrice, salePrice } = props;
+  const { listPrice, salePrice, isSaleActive } = props;
 
   const navigate = useNavigate();
 
@@ -24,9 +24,11 @@ export const ProductDetailTile = (props: any) => {
       <p className="italic mt-3 text-md font-kriviCenturyFont font-semibold">
         {name}
       </p>
-      <p className="line-through text-sm font-light font-kriviCourierFont ">
-        Rs. {listPrice}
-      </p>
+      {isSaleActive && (
+        <p className="line-through text-sm font-light font-kriviCourierFont ">
+          Rs. {listPrice}
+        </p>
+      )}
       <p className="font-kriviCourierFont text-md font-light">
         Rs. {salePrice}
       </p>

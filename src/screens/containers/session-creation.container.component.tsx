@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useKriviStore } from "../infra/store/store";
 
 const SessionCreationContainer = () => {
   const [email, setEmail] = useState("");
+
+  const { setEmail: setStoreEmail} = useKriviStore.getState();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,6 +29,7 @@ const SessionCreationContainer = () => {
       localStorage.setItem("kriviDetails", JSON.stringify(kriviDetails));
     }
     const from = location.state?.from || "/";
+    setStoreEmail(email)
     navigate(from);
   };
 

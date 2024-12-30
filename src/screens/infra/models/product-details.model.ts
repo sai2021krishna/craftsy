@@ -8,7 +8,13 @@ export type ProductData = {
     scented?: string;
 }
 
-export type Product = {
-    id: string;
-    data: ProductData;
+export type ProductInfo = {
+    id: number;
+    name: string;
+    pictures: string[];
+    altText: string;
+    isSaleActive: boolean;
+    listPrice: string;
+    salePrice: string;
+    description: string;
 }

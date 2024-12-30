@@ -1,5 +1,4 @@
 import { Category } from "../../models/category-detail.model";
-import { Product } from "../../models/product-details.model";
 
 export type ScreenTypes =
   | "DASHBOARD"
@@ -17,7 +16,7 @@ export type Categories = {
 
 export type Products = {
   prodDetails: {
-    products: Product[];
+    products: any;
   };
   setProducts: (products: any) => void;
   resetProducts: () => void;
@@ -27,9 +26,11 @@ export type ProcessFlags = {
   processFlags: {
     isLoaderActive: boolean;
     isErrorScreenActive: boolean;
+    isProductsLoaded: boolean
   };
   toggleErrorScreenActive: (isErrorScreenActive: boolean) => void;
   toggleLoaderActive: (isLoaderActive: boolean) => void;
+  toggleProductsLoaded: (isProductsLoaded: boolean) => void;
   resetProcessFlags: () => void;
 };
 

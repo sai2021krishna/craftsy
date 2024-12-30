@@ -1,33 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useKriviStore } from "../infra/store/store";
 import { products as helperProducts } from "./helper/products";
+import { useNavigate } from "react-router-dom";
+import { ProductInfo } from "../infra/models/product-details.model";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 function CartContainer() {
-  const { cart } = useKriviStore.getState();
+  const navigate = useNavigate();
+  const cart = useKriviStore((state) => state.cart);
+  const {
+    processFlags,
+    prodDetails,
+    setProducts: setStoreProducts,
+    removeProductFromCart,
+  } = useKriviStore.getState();
+  const [products, setProducts] = useState<ProductInfo[]>(prodDetails.products);
 
-  const products = cart.products;
+  useEffect(() => {
+    if (!processFlags.isProductsLoaded) {
+      setProducts(helperProducts);
+      setStoreProducts(helperProducts);
+    }
+  }, []);
+
+  const handleDeleteProductFromCart = (productId: number) => {
+    removeProductFromCart(productId);
+  };
 
   return (
     <div className="p-5">
       <p className="italic font-kriviCenturyFont text-2xl font-bold">Cart</p>
-      {products.length && (
+      {cart.products.length ? (
+        <>
+          <div className="mt-5">
+            {cart.products.map((cartProduct) => {
+              const productDetail = products.find(
+                (product) => product.id === cartProduct.productId
+              );
+              return (
+                <div className="h-28 w-full p-3 border-b flex justify-between items-center">
+                  <div className="w-1/3 flex justify-center">
+                    <img
+                      src={`/${productDetail?.pictures[0]}`}
+                      alt={productDetail?.altText}
+                      className="h-12"
+                    />
+                  </div>
+
+                  <div className="w-2/3">
+                    <p className="font-kriviCenturyFont font-bold">
+                      {productDetail?.name}
+                    </p>
+                    <p className="font-kriviCourierFont text-lg font-bold">
+                      Qty.
+                      {cartProduct.quantity}
+                    </p>
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleDeleteProductFromCart(productDetail?.id as number)
+                    }
+                    className="w-1/3 flex justify-center items-center active:transition active:ease-in-out active:scale-105"
+                  >
+                    <TrashIcon className="h-6 w-6 text-kriviError" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <button className="h-12 w-full mt-3 font-kriviCourierFont text-lg text-kriviBase bg-kriviBlack active:transition active:ease-in-out active:scale-105 rounded-sm">
+            Proceed to buy
+          </button>
+        </>
+      ) : (
         <div className="mt-5">
-          {products.map((product) => {
-            const productDetail = helperProducts.find(
-              (helperProduct) => helperProduct.id === product.productId
-            );
-            return (
-              <div className="h-20 w-full p-3 border-b flex justify-between">
-                <p className="font-kriviCenturyFont font-bold">
-                  {productDetail?.name}
-                </p>
-                <p className="font-kriviCourierFont text-lg font-bold">
-                  <span className="text-sm font-kriviCenturyFont">Qty. </span>
-                  {product.quantity}
-                </p>
-              </div>
-            );
-          })}
+          <p className="font-kriviCourierFont text-lg font-bold">
+            Nothing in you cart yet!
+          </p>
+          <button
+            onClick={() => {
+              navigate("/products");
+            }}
+            className="h-12 w-full mt-3 bg-kriviBlack font-kriviCourierFont text-lg text-kriviBase active:scale-105 active:trasition active:ease-in-out rounded-sm"
+          >
+            Browse products
+          </button>
         </div>
       )}
     </div>
