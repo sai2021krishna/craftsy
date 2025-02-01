@@ -5,7 +5,7 @@ export const HamburgerComponent = () => {
 
     return (
         <>
-            <p>HAMBURGER</p>
+            <p>HAMBURGER {data}</p>
         </>
     )
 }

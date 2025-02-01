@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type ProductDetailsProps = {
   name: string,
@@ -21,6 +21,7 @@ export const ProductDetailTile = (props: ProductDetailsProps) => {
     (id: number) => {
       navigate(`/products/${id}`);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [id]
   );
   return (

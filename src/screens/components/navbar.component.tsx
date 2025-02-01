@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import {
   Bars3Icon,
-  MagnifyingGlassIcon,
   ShoppingCartIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
@@ -30,6 +29,7 @@ export const NavbarComponent = () => {
   const returnHome = useCallback(() => {
     console.info("home");
     navigate("/");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

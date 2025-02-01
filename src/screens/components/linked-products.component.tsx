@@ -1,4 +1,3 @@
-import { ProductInfo } from "../infra/models/product-details.model";
 import { useKriviStore } from "../infra/store/store";
 import { ProductDetailTile } from "./product-detail-tile.component";
 
