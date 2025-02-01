@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ImageComponent } from "./image.component";
-const LazyLoadImage = require('react-lazy-load-image-component').LazyLoadImage;
 
 type ProductDetailsProps = {
   name: string;
