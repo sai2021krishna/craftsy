@@ -21,6 +21,7 @@ function CartContainer() {
       setProducts(helperProducts);
       setStoreProducts(helperProducts);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeleteProductFromCart = (productId: number) => {

@@ -7,6 +7,7 @@ export const DashboardContainerComponent = () => {
   const handleBrowseProductsClick = useCallback(() => {
     console.info("Browse Products Clicked");
     navigate("/products");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
