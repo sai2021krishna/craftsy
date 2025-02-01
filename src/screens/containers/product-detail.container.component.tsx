@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CarouselComponent from "../components/carousel.component";
 import { useKriviStore } from "../infra/store/store";
@@ -18,7 +18,7 @@ const ProductDetailsContainer = () => {
 
   const productId = pathname.split("/")[2];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
