@@ -29,11 +29,11 @@ const CarouselComponent = (props: CarouselComponentProps) => {
       >
         {carouselImages?.length &&
           carouselImages.map((src, index) => (
-            <ImageComponent
+            <img
               key={index}
               src={`/${src}`}
-              classes="w-full h-64 p-4 object-cover flex-shrink-0"
-              altText="..."
+              className="w-full h-64 p-4 object-cover flex-shrink-0"
+              alt="..."
             />
           ))}
       </div>
