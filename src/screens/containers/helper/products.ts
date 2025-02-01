@@ -148,7 +148,7 @@ export const products: ProductInfo[] = [
       listPrice: "300.00",
       salePrice: "250.00",
       isSaleActive: true,
-      linkedProductsId: [10,12,13],
+      linkedProductsId: [10,11,12],
       pictures: ['tissue-heart-canvas.jpeg','heart-canvas.jpeg','heart-canvas-packaging.jpeg'],
       altText: ''
     },
@@ -159,7 +159,7 @@ export const products: ProductInfo[] = [
       listPrice: "700.00",
       salePrice: "650.00",
       isSaleActive: true,
-      pictures: ['mithai-platter.jpeg','mithai-platter-2.jpeg'],
+      pictures: ['mithai-platter.jpeg','mitha-platter-2.jpeg'],
       altText: ''
     },
   ];

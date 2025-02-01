@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CarouselComponent from "../components/carousel.component";
 import { useKriviStore } from "../infra/store/store";
-import { products } from "./helper/products";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { LinkedProductsComponent } from "../components/linked-products.component";
 
 const ProductDetailsContainer = () => {
   const location = useLocation();
@@ -11,11 +11,20 @@ const ProductDetailsContainer = () => {
   const { pathname } = location;
 
   const { profile } = useKriviStore.getState();
+  const { products } = useKriviStore.getState().prodDetails;
 
   const [quantity, setQuantity] = useState(1);
   const [productsAddedInCart, setProductsAddedInCart] = useState(false);
 
   const productId = pathname.split("/")[2];
+
+  useLayoutEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
+  }, [])
 
   const productDetails = products.find(
     (product) => product.id === Number(productId)
@@ -97,10 +106,7 @@ const ProductDetailsContainer = () => {
         </div>
       )}
       <div className="mt-5 w-full">
-        <CarouselComponent />
-        <div className="mt-3 flex justify-center">
-          <p className="font-kriviCenturyFont text-sm"> 1/2 </p>
-        </div>
+        <CarouselComponent carouselImages={productDetails?.pictures}/>
       </div>
       <div className="p-5">
         <p className="font-kriviCourierFont text-xs opacity-50">KRIVI</p>
@@ -162,6 +168,9 @@ const ProductDetailsContainer = () => {
         <div className="mt-5">
           <p className="font-kriviCourierFont">{productDetails?.description}</p>
         </div>
+        {!!productDetails?.linkedProductsId?.length && <div className="mt-5">
+          <LinkedProductsComponent linkedProductIds={productDetails.linkedProductsId} />
+        </div>}
       </div>
     </div>
   );
