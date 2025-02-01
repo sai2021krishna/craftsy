@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowRightIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useKriviStore } from "../infra/store/store";
+import { ImageComponent } from "./image.component";
 
 export const FooterComponent = () => {
   // if you have a email ask with a checkbox to subscribe to newsletter
@@ -85,10 +86,10 @@ export const FooterComponent = () => {
 
         <div className="mt-5">
           <a href="https://www.instagram.com/krivi_collective?igsh=cmJvZGhweGo5dW8z">
-            <img
+            <ImageComponent
               src="/instagram.png"
-              alt="instagram"
-              className="h-6 w-6 text-kriviBase"
+              altText="instagram"
+              classes="h-6 w-6 text-kriviBase"
             />
           </a>
         </div>

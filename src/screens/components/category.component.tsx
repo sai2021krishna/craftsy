@@ -1,3 +1,5 @@
+import { ImageComponent } from "./image.component";
+
 export const CategoryComponent = (props: any) => {
   const { imageName, categoryTitle, categoryDescription } = props;
   return (
@@ -5,11 +7,11 @@ export const CategoryComponent = (props: any) => {
       <div
         className={`h-1/2  md:h-full xl:h-full 2xl:h-full md:w-1/2 xl:w-1/2 2xl:w-1/2 flex justify-center items-center p-2`}
       >
-        <img
+        <ImageComponent
           src={imageName}
-          className="h-full w-full object-center mix-blend-darken border-none rounded-xl"
-          alt={`${imageName}`}
-        ></img>
+          classes="h-full w-full object-center mix-blend-darken border-none rounded-xl"
+          altText={`${imageName}`}
+        />
       </div>
       <div className="h-1/2 md:h-full xl:h-full 2xl:h-full md:w-1/2 xl:w-1/2 2xl:w-1/2 p-5 m-auto">
         <p className="text-kriviContrast text-6xl md:text-9xl xl:text-9xl 2xl:text-9xl font-kriviMPlus1PFont flex justify-center md:justify-start xl:justify-start 2xl:justify-start">

@@ -4,6 +4,7 @@ import { products as helperProducts } from "./helper/products";
 import { useNavigate } from "react-router-dom";
 import { ProductInfo } from "../infra/models/product-details.model";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { ImageComponent } from "../components/image.component";
 
 function CartContainer() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function CartContainer() {
       setProducts(helperProducts);
       setStoreProducts(helperProducts);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeleteProductFromCart = (productId: number) => {
@@ -41,10 +42,10 @@ function CartContainer() {
               return (
                 <div className="h-28 w-full p-3 border-b flex justify-between items-center">
                   <div className="w-1/3 p-2 flex justify-center">
-                    <img
+                    <ImageComponent
                       src={`/${productDetail?.pictures[0]}`}
-                      alt={productDetail?.altText}
-                      className="h-12"
+                      altText={productDetail?.altText ?? ""}
+                      classes="h-12"
                     />
                   </div>
 

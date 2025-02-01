@@ -1,15 +1,17 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { ImageComponent } from "./image.component";
+const LazyLoadImage = require('react-lazy-load-image-component').LazyLoadImage;
 
 type ProductDetailsProps = {
-  name: string,
-  image: string,
-  altText: string,
-  listPrice: string,
-  salePrice: string,
-  id: number,
-  isSaleActive: boolean,
-}
+  name: string;
+  image: string;
+  altText: string;
+  listPrice: string;
+  salePrice: string;
+  id: number;
+  isSaleActive: boolean;
+};
 
 export const ProductDetailTile = (props: ProductDetailsProps) => {
   const { id, name, image, altText } = props;
@@ -30,7 +32,7 @@ export const ProductDetailTile = (props: ProductDetailsProps) => {
       onClick={() => handleProductClick(id)}
     >
       <div>
-        <img src={`/${image}`} alt={altText} className="border-none rounded-md" />
+        <ImageComponent src={`/${image}`} altText={altText} classes="border-none rounded-md"/>
       </div>
       <p className="italic mt-3 text-md font-kriviCenturyFont font-semibold">
         {name}

@@ -6,6 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useCallback, useEffect } from "react";
 import { useKriviStore } from "../infra/store/store";
+import { ImageComponent } from "./image.component";
 
 export const NavbarComponent = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export const NavbarComponent = () => {
   const returnHome = useCallback(() => {
     console.info("home");
     navigate("/");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -41,10 +42,10 @@ export const NavbarComponent = () => {
         className="w-3/5 md:w-4/5 xl:w-4/5 2xl:w-4/5 flex justify-center"
         onClick={returnHome}
       >
-        <img
+        <ImageComponent
           src="/krivi-logo-cropped.png"
-          alt="Krivi's Logo"
-          className="p-1 h-14 w-auto object-cover"
+          altText="Krivi's Logo"
+          classes="p-1 h-14 w-auto object-cover"
         />
       </div>
       <div className="w-1/5 md:w-1/10 xl:w-1/10 2xl:w-1/10 flex justify-center items-center">
