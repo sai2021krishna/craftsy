@@ -7,7 +7,7 @@ export const DashboardContainerComponent = () => {
   const handleBrowseProductsClick = useCallback(() => {
     console.info("Browse Products Clicked");
     navigate("/products");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -18,7 +18,11 @@ export const DashboardContainerComponent = () => {
         </p>
         <p className="text-sm font-kriviCourierFont text-center">
           You might not be able to place an order from the websitebut you can
-          react us out at <a href="">@krivi_collective</a> on Instagram.
+          react us out at{" "}
+          <a href="https://www.instagram.com/krivi_collective?igsh=cmJvZGhweGo5dW8z">
+            @krivi_collective
+          </a>
+          on Instagram.
         </p>
       </div>
 
@@ -71,7 +75,7 @@ export const DashboardContainerComponent = () => {
           </p>
           <a href="https://www.instagram.com/krivi_collective?igsh=cmJvZGhweGo5dW8z">
             <button
-              name="Browse products"
+              name="Get in touch"
               className="mt-4 w-3/4 h-8 text-sm font-kriviCourierFont border"
             >
               Get in touch
