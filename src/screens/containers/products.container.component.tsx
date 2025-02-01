@@ -36,7 +36,7 @@ export const ProductsContainerComponent = () => {
           <AdjustmentsHorizontalIcon className="h-6" />
           <p className="ml-2 font-kriviCenturyFont">Filter and sort</p>
         </div>
-        <p className="font-kriviCenturyFont">4 products</p>
+        <p className="font-kriviCenturyFont">{products.length} products</p>
       </div>
       <p className="italic text-xl font-bold font-kriviCenturyFont">Products</p>
       {products?.length ? (

@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { ImageComponent } from "../components/image.component";
 
 export const DashboardContainerComponent = () => {
   const navigate = useNavigate();
@@ -27,7 +28,11 @@ export const DashboardContainerComponent = () => {
       </div>
 
       <div className="p-2 mb-2">
-        <img src="coldplay-candle.jpeg" alt="coldplay candle" />
+        <ImageComponent
+          src="coldplay-candle.jpeg"
+          altText="coldplay candle"
+          classes=""
+        />
         <div className="p-2">
           <p className="mt-2 text-lg font-bold font-kriviCenturyFont">
             "Light up your worlds, one story at a time"
@@ -48,7 +53,11 @@ export const DashboardContainerComponent = () => {
       </div>
 
       <div className="p-2 mb-2  bg-kriviBlack bg-opacity-5 rounded-md">
-        <img src="ambasador-picture.jpg" alt="krivi brand ambasador" />
+        <ImageComponent
+          src="ambasador-picture.jpg"
+          altText="krivi brand ambasador"
+          classes=""
+        />
         <div className="mt-3 p-2">
           <p className="mt-2 text-lg font-bold font-kriviCenturyFont">
             About us
@@ -62,10 +71,10 @@ export const DashboardContainerComponent = () => {
       </div>
 
       <div className="p-2 mt-3 mb-2">
-        <img
+        <ImageComponent
           src="creative-idea.jpeg"
-          alt="krivi brand ambasador"
-          className="mt-3"
+          altText="krivi brand ambasador"
+          classes="mt-3"
         />
         <div className="p-2">
           <p className="mt-2 text-sm font-kriviCourierFont">
