@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ImageComponent } from "./image.component";
 
 type CarouselComponentProps = {
   carouselImages?: string[];
