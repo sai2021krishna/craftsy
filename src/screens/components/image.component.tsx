@@ -1,16 +1,21 @@
-const LazyLoadImage = require('react-lazy-load-image-component').LazyLoadImage;
+const LazyLoadImage = require("react-lazy-load-image-component").LazyLoadImage;
 
 type ImgaeComponentProps = {
-    src: string,
-    classes: string;
-    altText: string
-}
+  src: string;
+  classes: string;
+  altText: string;
+};
 export const ImageComponent = (props: ImgaeComponentProps) => {
-    const { src, classes, altText } = props;
+  const { src, classes, altText } = props;
 
-    return (
-        <>
-            <LazyLoadImage alt={altText} src={src} className={classes} />
-        </>
-    )
-}
+  return (
+    <>
+      <LazyLoadImage
+        alt={altText}
+        src={src}
+        className={classes}
+        placeholderSrc={`gs://krivi-criative-trial.firebasestorage.app/images/palceholder.png`}
+      />
+    </>
+  );
+};
