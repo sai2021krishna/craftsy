@@ -1,7 +1,17 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export const ProductDetailTile = (props: any) => {
+type ProductDetailsProps = {
+  name: string,
+  image: string,
+  altText: string,
+  listPrice: string,
+  salePrice: string,
+  id: number,
+  isSaleActive: boolean,
+}
+
+export const ProductDetailTile = (props: ProductDetailsProps) => {
   const { id, name, image, altText } = props;
   const { listPrice, salePrice, isSaleActive } = props;
 
@@ -9,7 +19,7 @@ export const ProductDetailTile = (props: any) => {
 
   const handleProductClick = useCallback(
     (id: number) => {
-      navigate(`${id}`);
+      navigate(`/products/${id}`);
     },
     [id]
   );
@@ -19,7 +29,7 @@ export const ProductDetailTile = (props: any) => {
       onClick={() => handleProductClick(id)}
     >
       <div>
-        <img src={image} alt={altText} className="border-none rounded-md" />
+        <img src={`/${image}`} alt={altText} className="border-none rounded-md" />
       </div>
       <p className="italic mt-3 text-md font-kriviCenturyFont font-semibold">
         {name}

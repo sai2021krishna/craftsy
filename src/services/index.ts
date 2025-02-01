@@ -1,1 +1,1 @@
-export { getAllCategories, getAllProductsFromCategory } from './firestore-functions-call'
+export { getAllProducts, getUserProfile, createUserProfile, subscribeNewsLetter } from './firestore-functions-call';

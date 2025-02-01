@@ -1,4 +1,5 @@
 import { Category } from "../../models/category-detail.model";
+import { ProductInfo } from "../../models/product-details.model";
 
 export type ScreenTypes =
   | "DASHBOARD"
@@ -16,7 +17,7 @@ export type Categories = {
 
 export type Products = {
   prodDetails: {
-    products: any;
+    products: ProductInfo[];
   };
   setProducts: (products: any) => void;
   resetProducts: () => void;

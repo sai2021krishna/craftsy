@@ -5,9 +5,13 @@ const prodBaseAddress =
 
 //const baseAddress = "http://localhost:5001/krivi-criative-trial/us-central1/api";
 
-export const getAllCategories = async () => {
+const mockBaseAddress = "http://localhost:3030";
+
+const activeAddress = mockBaseAddress;
+
+export const getAllProducts = async () => {
   try {
-    const response = await axios.get(`${prodBaseAddress}/category/all`, {
+    const response = await axios.get(`${activeAddress}/products/all`, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
     return response.data;
@@ -16,13 +20,42 @@ export const getAllCategories = async () => {
   }
 };
 
-export const getAllProductsFromCategory = async (category: string) => {
+export const getUserProfile = async (email: string) => {
   try {
-    const response = await axios.get(`${prodBaseAddress}/products/all`, {
+    const response = await axios.get(`${activeAddress}/profile/fetch`, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       params: {
-        category,
+        email,
       },
     });
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const createUserProfile = async (profile: string) => {
+  try {
+    const response = await axios.post(`${activeAddress}/profile/create`, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      params: {
+        profile,
+      },
+    });
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const subscribeNewsLetter = async () => {
+  try {
+    const response = await axios.post(
+      `${activeAddress}/subscribe/news-letter`,
+      {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      }
+    );
     return response.data;
   } catch (e) {
     console.log(e);

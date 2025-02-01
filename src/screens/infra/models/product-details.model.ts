@@ -17,4 +17,5 @@ export type ProductInfo = {
     listPrice: string;
     salePrice: string;
     description: string;
+    linkedProductsId?: number[] | string[];
 }
