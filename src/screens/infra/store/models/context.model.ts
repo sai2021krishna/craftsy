@@ -35,7 +35,7 @@ export type ProcessFlags = {
   resetProcessFlags: () => void;
 };
 
-export type CartProduct = { productId: number; quantity: number };
+export type CartProduct = { productId: number; fargrance: string; quantity: number; customisation: string };
 
 export type CartDetails = {
   cart: {

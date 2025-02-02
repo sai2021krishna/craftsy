@@ -5,6 +5,8 @@ import { useKriviStore } from "../infra/store/store";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { LinkedProductsComponent } from "../components/linked-products.component";
 
+const fragranceOptions = ['Cinnamon Vanilla', 'Rose', 'Cinnamon', 'Cafe coffee', 'lavender', 'bubblegum', 'Extensia']
+
 const ProductDetailsContainer = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,15 +18,18 @@ const ProductDetailsContainer = () => {
   const [quantity, setQuantity] = useState(1);
   const [productsAddedInCart, setProductsAddedInCart] = useState(false);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("");
+
   const productId = pathname.split("/")[2];
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
-  }, [])
+  }, []);
 
   const productDetails = products.find(
     (product) => product.id === Number(productId)
@@ -67,7 +72,12 @@ const ProductDetailsContainer = () => {
     if (quantity === 0) {
       removeProductFromCart(Number(productId));
     } else if (!products.length || !exitsingProduct) {
-      pushNewProductsToCart({ productId: Number(productId), quantity });
+      pushNewProductsToCart({
+        productId: Number(productId),
+        quantity,
+        fargrance: "",
+        customisation: "",
+      });
     } else {
       updateExistingProductQuant(Number(productId), quantity);
     }
@@ -106,7 +116,7 @@ const ProductDetailsContainer = () => {
         </div>
       )}
       <div className="mt-5 w-full">
-        <CarouselComponent carouselImages={productDetails?.pictures}/>
+        <CarouselComponent carouselImages={productDetails?.pictures} />
       </div>
       <div className="p-5">
         <p className="font-kriviCourierFont text-xs opacity-50">KRIVI</p>
@@ -128,6 +138,36 @@ const ProductDetailsContainer = () => {
             </p>
           )}
         </div>
+
+        <div className="mt-5">
+          <div className="relative inline-block  w-2/3 h-6">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-full px-2 py-1 bg-kriviBase border text-md flex justify-between items-center font-kriviCourierFont"
+            >
+              <span className={!selected ? 'opacity-40': ''}>{selected || 'Fragrance'}</span>
+              <span className="ml-2 active:transition active:ease-in-out active:scale-105">{isOpen ? "▲" : "▼"}</span>
+            </button>
+
+            {isOpen && (
+              <ul className="absolute mt-2 w-full bg-kriviBase font-kriviCourierFont border z-10 trasition-transform duration-700 ease-in-out">
+                {fragranceOptions.map((option, index) => (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      setSelected(option);
+                      setIsOpen(false);
+                    }}
+                    className="px-2 py-1 active:transition active:ease-in-out active:scale-105"
+                  >
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
         <div className="mt-5">
           <p className="font-kriviCourierFont text-md opacity-70">Quantity</p>
           <div className="mt-2 w-32 h-8 flex justify-center border">
@@ -168,9 +208,13 @@ const ProductDetailsContainer = () => {
         <div className="mt-5">
           <p className="font-kriviCourierFont">{productDetails?.description}</p>
         </div>
-        {!!productDetails?.linkedProductsId?.length && <div className="mt-5">
-          <LinkedProductsComponent linkedProductIds={productDetails.linkedProductsId} />
-        </div>}
+        {!!productDetails?.linkedProductsId?.length && (
+          <div className="mt-5">
+            <LinkedProductsComponent
+              linkedProductIds={productDetails.linkedProductsId}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
