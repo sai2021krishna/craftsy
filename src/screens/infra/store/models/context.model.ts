@@ -42,8 +42,8 @@ export type CartDetails = {
     products: CartProduct[];
   };
   pushNewProductsToCart: (product: CartProduct) => void;
-  updateExistingProductQuant: (productId: number, quantity: number) => void;
-  removeProductFromCart: (productId: number) => void;
+  updateExistingProductQuant: (productId: number, quantity: number, fragrance: string) => void;
+  removeProductFromCart: (productId: number, fragrance: string) => void;
   resetCart: () => void;
 };
 
