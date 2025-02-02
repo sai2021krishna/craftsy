@@ -25,8 +25,8 @@ function CartContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDeleteProductFromCart = (productId: number) => {
-    removeProductFromCart(productId);
+  const handleDeleteProductFromCart = (productId: number, fragrance: string) => {
+    removeProductFromCart(productId, fragrance);
   };
 
   return (
@@ -41,7 +41,7 @@ function CartContainer() {
               );
               return (
                 <div className="h-28 w-full p-3 border-b flex justify-between items-center">
-                  <div className="w-1/3 p-2 flex justify-center">
+                  <div className="w-1/3 p-2 flex justify-center" onClick={() => {navigate(`/products/${productDetail?.id}`)}}>
                     <ImageComponent
                       src={`/${productDetail?.pictures[0]}`}
                       altText={productDetail?.altText ?? ""}
@@ -53,14 +53,17 @@ function CartContainer() {
                     <p className="font-kriviCenturyFont font-bold">
                       {productDetail?.name}
                     </p>
-                    <p className="font-kriviCourierFont text-lg font-bold">
+                    <p className="font-kriviCourierFont text-sm">
+                      {cartProduct.fargrance}
+                    </p>
+                    <p className="font-kriviCourierFont text-sm font-semibold">
                       Qty.
                       {cartProduct.quantity}
                     </p>
                   </div>
                   <div
                     onClick={() =>
-                      handleDeleteProductFromCart(productDetail?.id as number)
+                      handleDeleteProductFromCart(productDetail?.id as number, cartProduct.fargrance)
                     }
                     className="w-1/3 flex justify-center items-center active:transition active:ease-in-out active:scale-105"
                   >

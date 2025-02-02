@@ -4,6 +4,17 @@ import CarouselComponent from "../components/carousel.component";
 import { useKriviStore } from "../infra/store/store";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { LinkedProductsComponent } from "../components/linked-products.component";
+import { QuantityRegulatorComponent } from "../components/qunatity-regulator.component";
+
+const fragranceOptions = [
+  "Cinnamon Vanilla",
+  "Rose",
+  "Cinnamon",
+  "Cafe coffee",
+  "lavender",
+  "bubblegum",
+  "Extensia",
+];
 
 const ProductDetailsContainer = () => {
   const location = useLocation();
@@ -16,15 +27,19 @@ const ProductDetailsContainer = () => {
   const [quantity, setQuantity] = useState(1);
   const [productsAddedInCart, setProductsAddedInCart] = useState(false);
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedFrag, setSelectedFrag] = useState("");
+  const [fragranceError, setFragranceError] = useState(false);
+
   const productId = pathname.split("/")[2];
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
-  }, [])
+  }, []);
 
   const productDetails = products.find(
     (product) => product.id === Number(productId)
@@ -61,15 +76,22 @@ const ProductDetailsContainer = () => {
     const { products } = cart;
 
     const exitsingProduct = products.find(
-      (product) => product.productId === Number(productId)
+      (product) =>
+        product.productId === Number(productId) &&
+        product.fargrance === selectedFrag
     );
 
     if (quantity === 0) {
-      removeProductFromCart(Number(productId));
+      removeProductFromCart(Number(productId), selectedFrag);
     } else if (!products.length || !exitsingProduct) {
-      pushNewProductsToCart({ productId: Number(productId), quantity });
+      pushNewProductsToCart({
+        productId: Number(productId),
+        quantity,
+        fargrance: selectedFrag,
+        customisation: "",
+      });
     } else {
-      updateExistingProductQuant(Number(productId), quantity);
+      updateExistingProductQuant(Number(productId), quantity, selectedFrag);
     }
   };
 
@@ -77,15 +99,21 @@ const ProductDetailsContainer = () => {
     if (!profile?.email) {
       navigate("/session-creation", { state: { from: location.pathname } });
     } else {
+      if (!selectedFrag) {
+        setFragranceError(true);
+        return;
+      }
       manageProductInCart();
       if (type === "CART") {
         setProductsAddedInCart(true);
         setTimeout(() => {
           setProductsAddedInCart(false);
         }, 6000);
+        setQuantity(1);
+        setSelectedFrag("");
       }
       // update cart details in firestore
-      if (type === "BUY") {
+      else if (type === "BUY") {
         navigate("/cart");
       }
     }
@@ -106,7 +134,7 @@ const ProductDetailsContainer = () => {
         </div>
       )}
       <div className="mt-5 w-full">
-        <CarouselComponent carouselImages={productDetails?.pictures}/>
+        <CarouselComponent carouselImages={productDetails?.pictures} />
       </div>
       <div className="p-5">
         <p className="font-kriviCourierFont text-xs opacity-50">KRIVI</p>
@@ -128,28 +156,52 @@ const ProductDetailsContainer = () => {
             </p>
           )}
         </div>
+
         <div className="mt-5">
-          <p className="font-kriviCourierFont text-md opacity-70">Quantity</p>
-          <div className="mt-2 w-32 h-8 flex justify-center border">
-            <p
-              className="w-10 font-kriviCourierFont text-xl text-center active:transition active:ease-in-out active:scale-105"
-              onClick={() => handleQuantityMutation("-")}
+          <div className="relative inline-block  w-2/3 h-6">
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="w-full px-2 py-1 bg-kriviBase border text-md flex justify-between items-center font-kriviCourierFont"
             >
-              -
-            </p>
-            <input
-              type="text"
-              value={quantity}
-              className="w-10 font-kriviCourierFont text-xl text-center"
-              onChange={handleInputChange}
-            />
-            <p
-              className="w-10 font-kriviCourierFont text-xl text-center active:transition active:ease-in-out active:scale-105"
-              onClick={() => handleQuantityMutation("+")}
-            >
-              +
-            </p>
+              <span className={!selectedFrag ? "opacity-40" : ""}>
+                {selectedFrag || "Fragrance"}
+              </span>
+              <span className="ml-2 active:transition active:ease-in-out active:scale-105">
+                {isDropdownOpen ? "▲" : "▼"}
+              </span>
+            </button>
+            {fragranceError && (
+              <p className="font-kriviCourierFont text-sm text-kriviError font-semibold">
+                Please select a fragrance.
+              </p>
+            )}
+
+            {isDropdownOpen && (
+              <ul className="absolute mt-2 w-full bg-kriviBase font-kriviCourierFont border z-10 trasition-transform duration-700 ease-in-out">
+                {fragranceOptions.map((option, index) => (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      setSelectedFrag(option);
+                      setFragranceError(false);
+                      setIsDropdownOpen(false);
+                    }}
+                    className="px-2 py-1 active:transition active:ease-in-out active:scale-105"
+                  >
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
+        </div>
+
+        <div className="mt-5">
+          <QuantityRegulatorComponent
+            quantity={quantity}
+            handleInputChange={handleCartNBuyButtonClicks}
+            handleQuantityMutation={handleQuantityMutation}
+          />
         </div>
         <div className="mt-5">
           <button
@@ -168,9 +220,13 @@ const ProductDetailsContainer = () => {
         <div className="mt-5">
           <p className="font-kriviCourierFont">{productDetails?.description}</p>
         </div>
-        {!!productDetails?.linkedProductsId?.length && <div className="mt-5">
-          <LinkedProductsComponent linkedProductIds={productDetails.linkedProductsId} />
-        </div>}
+        {!!productDetails?.linkedProductsId?.length && (
+          <div className="mt-5">
+            <LinkedProductsComponent
+              linkedProductIds={productDetails.linkedProductsId}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
