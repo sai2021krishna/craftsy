@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ProductInfo } from "../infra/models/product-details.model";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { ImageComponent } from "../components/image.component";
+import { QuantityRegulatorComponent } from "../components/qunatity-regulator.component";
 
 function CartContainer() {
   const navigate = useNavigate();
@@ -25,8 +26,35 @@ function CartContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDeleteProductFromCart = (productId: number, fragrance: string) => {
+  const handleDeleteProductFromCart = (
+    productId: number,
+    fragrance: string
+  ) => {
     removeProductFromCart(productId, fragrance);
+  };
+
+  const handleInputChange = function (this: any, e: any) {
+    const { id, fragrance } = this;
+    e.preventDefault();
+    const { updateExistingProductQuant } = useKriviStore.getState();
+    const value = e.target.value;
+    if (Number.isNaN(Number(value))) {
+      updateExistingProductQuant(id, 1, fragrance);
+    } else {
+      updateExistingProductQuant(id, Number(value), fragrance);
+    }
+  };
+
+  const handleQuantityMutation = function (this: any, type: "-" | "+") {
+    const { id, quantity, fragrance } = this;
+    const { updateExistingProductQuant } = useKriviStore.getState();
+    if (type === "+") {
+      updateExistingProductQuant(id, quantity + 1, fragrance);
+    } else {
+      if (quantity > 1) {
+        updateExistingProductQuant(id, quantity - 1, fragrance);
+      }
+    }
   };
 
   return (
@@ -41,7 +69,12 @@ function CartContainer() {
               );
               return (
                 <div className="h-28 w-full p-3 border-b flex justify-between items-center">
-                  <div className="w-1/3 p-2 flex justify-center" onClick={() => {navigate(`/products/${productDetail?.id}`)}}>
+                  <div
+                    className="w-1/3 p-2 flex justify-center"
+                    onClick={() => {
+                      navigate(`/products/${productDetail?.id}`);
+                    }}
+                  >
                     <ImageComponent
                       src={`/${productDetail?.pictures[0]}`}
                       altText={productDetail?.altText ?? ""}
@@ -50,20 +83,33 @@ function CartContainer() {
                   </div>
 
                   <div className="w-2/3 p-2">
-                    <p className="font-kriviCenturyFont font-bold">
-                      {productDetail?.name}
+                    <p className="font-kriviCenturyFont font-bold text-sm">
+                      {productDetail?.name}{" "}
+                      <span className="font-kriviCourierFont font-light">{`(${cartProduct.fargrance})`}</span>
                     </p>
-                    <p className="font-kriviCourierFont text-sm">
-                      {cartProduct.fargrance}
-                    </p>
-                    <p className="font-kriviCourierFont text-sm font-semibold">
-                      Qty.
-                      {cartProduct.quantity}
-                    </p>
+                    <p className=""></p>
+                    <QuantityRegulatorComponent
+                      isQuantityTextVisible={false}
+                      quantity={cartProduct.quantity}
+                      handleInputChange={handleInputChange.bind({
+                        id: cartProduct.productId,
+                        quantity: cartProduct.quantity,
+                        fragrance: cartProduct.fargrance,
+                      })}
+                      handleQuantityMutation={handleQuantityMutation.bind({
+                        id: cartProduct.productId,
+                        quantity: cartProduct.quantity,
+                        fragrance: cartProduct.fargrance,
+                      })}
+                      display="cart"
+                    />
                   </div>
                   <div
                     onClick={() =>
-                      handleDeleteProductFromCart(productDetail?.id as number, cartProduct.fargrance)
+                      handleDeleteProductFromCart(
+                        productDetail?.id as number,
+                        cartProduct.fargrance
+                      )
                     }
                     className="w-1/3 flex justify-center items-center active:transition active:ease-in-out active:scale-105"
                   >

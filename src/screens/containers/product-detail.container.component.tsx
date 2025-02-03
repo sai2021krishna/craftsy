@@ -198,9 +198,11 @@ const ProductDetailsContainer = () => {
 
         <div className="mt-5">
           <QuantityRegulatorComponent
+            isQuantityTextVisible={true}
             quantity={quantity}
-            handleInputChange={handleCartNBuyButtonClicks}
+            handleInputChange={handleInputChange}
             handleQuantityMutation={handleQuantityMutation}
+            display="details"
           />
         </div>
         <div className="mt-5">
