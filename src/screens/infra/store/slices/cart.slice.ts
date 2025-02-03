@@ -30,7 +30,7 @@ export const CartSlice: StateCreator<CartDetails> = (set) => ({
     set((state) => {
       const filteredProducts = state.cart.products.filter(
         (product) =>
-          product.productId !== productId && product.fargrance !== fragrance
+          !(product.productId === productId && product.fargrance === fragrance)
       );
       return { cart: { ...state.cart, products: filteredProducts } };
     }),
