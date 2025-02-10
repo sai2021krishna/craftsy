@@ -40,7 +40,7 @@ export const ProductsContainerComponent = () => {
       </div>
       <p className="italic text-xl font-bold font-kriviCenturyFont">Products</p>
       {products?.length ? (
-        <div className="mt-3 flex flex-wrap">
+        <div className="mt-3 flex justify-evenly flex-wrap">
           {products.map((product, index) => {
             return (
               <ProductDetailTile

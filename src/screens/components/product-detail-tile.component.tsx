@@ -27,7 +27,7 @@ export const ProductDetailTile = (props: ProductDetailsProps) => {
   );
   return (
     <div
-      className="p-2 h-60 w-1/2 flex-2 active:bg-kriviBlack active:bg-opacity-10 active:transition active:ease-in-out active:scale-105"
+      className="p-2 h-56 w-40 flex-2 active:bg-kriviBlack active:bg-opacity-10 active:transition active:ease-in-out active:scale-105"
       onClick={() => handleProductClick(id)}
     >
       <div>
